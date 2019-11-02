@@ -1,0 +1,129 @@
+fibonacci              k              a              b              ident_rhs -> INTEGER
+ident_call -> COLON ident_rhs
+ident_call -> COMMA IDENT b ident_call
+ident_call -> COMMA IDENT a ident_call
+declaration -> IDENT k ident_call
+declaration_call -> EMPTY
+declaration_call -> declaration SEMICOLON declaration_call
+declaration_call -> EMPTY
+k              <=var -> IDENT k
+termA -> var
+term -> termA
+multterms -> EMPTY
+multiplciative-expr -> term multterms
+expr_arith -> EMPTY
+expression -> multiplicative-expr expr_arith
+comp -> LTE
+termA -> NUMBER 1
+term -> termA
+multterms -> EMPTY
+multiplciative-expr -> term multterms
+expr_arith -> EMPTY
+expression -> multiplicative-expr expr_arith
+relation-rhs -> expression comp expression
+relation-expr -> relation-rhs
+more-expr -> EMPTY
+relation-and-expr -> relation-expr more-expr
+more-bool -> EMPTY
+bool-expr -> relation-and-expr more-bool
+relation-rhs -> L_PAREN bool-expr R_PAREN
+relation-expr -> relation-rhs
+more-expr -> EMPTY
+relation-and-expr -> relation-expr more-expr
+more-bool -> EMPTY
+bool-expr -> relation-and-expr more-bool
+peepee
+peepee2
+termA -> NUMBER 1
+term -> termA
+multterms -> EMPTY
+multiplciative-expr -> term multterms
+expr_arith -> EMPTY
+expression -> multiplicative-expr expr_arith
+statement -> RETURN expression
+if_loop -> ENDIF
+statement -> IF bool-expr THEN statement SEMICOLON if_loop
+fibonacci              k              var -> IDENT k
+termA -> var
+term -> termA
+multterms -> EMPTY
+multiplciative-expr -> term multterms
+termA -> NUMBER 1
+term -> termA
+multterms -> EMPTY
+multiplciative-expr -> term multterms
+expr_arith -> EMPTY
+expr_arith -> SUB multiplicative-expr expr_arith
+expression -> multiplicative-expr expr_arith
+term_param -> expression
+termB -> IDENT f L_PAREN term_param R_PAREN
+term -> termB
+multterms -> EMPTY
+multiplciative-expr -> term multterms
+fibonacci              k              var -> IDENT k
+termA -> var
+term -> termA
+multterms -> EMPTY
+multiplciative-expr -> term multterms
+termA -> NUMBER 2
+term -> termA
+multterms -> EMPTY
+multiplciative-expr -> term multterms
+expr_arith -> EMPTY
+expr_arith -> SUB multiplicative-expr expr_arith
+expression -> multiplicative-expr expr_arith
+term_param -> expression
+termB -> IDENT f L_PAREN term_param R_PAREN
+term -> termB
+multterms -> EMPTY
+multiplciative-expr -> term multterms
++
+expr_arith -> EMPTY
+expr_arith -> ADD multiplicative-expr expr_arith
+expression -> multiplicative-expr expr_arith
+statement -> RETURN expression
+statement_call -> EMPTY
+statement_call -> statement SEMICOLON statement_call
+statement_call -> statement SEMICOLON statement_call
+function -> FUNCTION IDENT f SEMICOLON BEGIN_PARAMS declaration_call END_LOCALS BEGIN_BODY statement_call END_BODY
+main              declaration_call -> EMPTY
+n              ident_rhs -> INTEGER
+ident_call -> COLON ident_rhs
+declaration -> IDENT n ident_call
+fib_n              ident_rhs -> INTEGER
+ident_call -> COLON ident_rhs
+declaration -> IDENT f ident_call
+declaration_call -> EMPTY
+declaration_call -> declaration SEMICOLON declaration_call
+declaration_call -> declaration SEMICOLON declaration_call
+n              var -> IDENT n
+var_call -> var
+statement -> READ var_call
+fib_n              var -> IDENT f
+fibonacci              n              var -> IDENT n
+termA -> var
+term -> termA
+multterms -> EMPTY
+multiplciative-expr -> term multterms
+expr_arith -> EMPTY
+expression -> multiplicative-expr expr_arith
+term_param -> expression
+termB -> IDENT f L_PAREN term_param R_PAREN
+term -> termB
+multterms -> EMPTY
+multiplciative-expr -> term multterms
+expr_arith -> EMPTY
+expression -> multiplicative-expr expr_arith
+statement -> var ASSIGN expression
+fib_n              var -> IDENT f
+var_call -> var
+statement -> WRITE var_call
+statement_call -> EMPTY
+statement_call -> statement SEMICOLON statement_call
+statement_call -> statement SEMICOLON statement_call
+statement_call -> statement SEMICOLON statement_call
+function -> FUNCTION IDENT m SEMICOLON BEGIN_PARAMS declaration_call END_LOCALS BEGIN_BODY statement_call END_BODY
+begin_program -> EMPTY
+begin_program -> function begin_program
+begin_program -> function begin_program
+program -> begin_program

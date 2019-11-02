@@ -1,0 +1,35 @@
+func fibonacci
+. b
+= b, $0
+. a
+= a, $1
+. k
+= k, $2
+found LTE
+. __temp__0
+k __temp__0, k, 1
+?:=__label__0, (
+:=__label__1
+:__label__0
+. __temp__1
+- __temp__1, -, 1
+. __temp__2
+call fibonacci, __temp__2
+. __temp__3
+- __temp__3, -, 2
+. __temp__4
+call fibonacci, __temp__4
+. __temp__5
++ __temp__5, +, f
+endfunc
+func main
+. n
+= n, $0
+. f
+= f, $1
+.< r
+. __temp__6
+call fibonacci, __temp__6
+= f, f
+.> w
+endfunc
