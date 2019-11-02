@@ -1,0 +1,239 @@
+Problem 1
+---------
+
+>> syms x
+>> f = 1/pi*(cos(sin(x)))
+>> a = 0
+>> b = pi
+>> syms i
+>> h = (b-a)/power(2,i)
+>> Start = 1/pi*(cos(sin(0)))
+>> End = 1/pi*(cos(sin(pi)))
+
+>> A = [0 0 0 0 0 0; 0 0 0 0 0 0; 0 0 0 0 0 0; 0 0 0 0 0 0; 0 0 0 0 0 0; 0 0 0 0 0 0]
+
+
+fulladd.m
+-------
+
+fulladd = 0;
+
+for i = 1:6
+ 
+    h = (b-a)/2^i;
+
+    Step = 2*((b-a)/2^i);
+
+    %disp(Step + "This is step");
+
+    Track = (b-a)/Step;
+
+    %disp(Track + "Track");
+
+        while (Track - 1 > 0)
+
+        x = (Track-1)*2*h;
+
+        %disp(x + "This is X");
+
+        fulladd = fulladd + (1/pi*(cos(sin(x))));
+
+        Track = Track - 1;
+
+        end
+ 
+    fulladd = fulladd * 2;
+
+fulladd = fulladd + Start;
+
+fulladd = fulladd + End;
+
+%disp(fulladd + "This is fulladd before")
+
+fulladd = fulladd*(1/2^i*pi);
+
+%disp(fulladd + "This is fulladd")
+
+A(i,1) = fulladd;
+fulladd = 0;
+
+end
+A
+---------------------------------------------------------------------------------------------------------------------------
+A =
+
+   1.000000000000000                   0                   0                   0                   0                   0
+
+      0.770151152934070                   0                   0                   0                   0                   0
+
+      0.765197875004850                   0                   0                   0                   0                   0
+
+      0.765197686557966                   0                   0                   0                   0                   0
+
+      0.765197686557966                   0                   0                   0                   0                   0
+
+      0.765197686557967                   0                   0                   0                   0                   0
+
+---------------------------------------------------------------------------------------------------------------------------
+
+Romberg.m
+---------
+
+mult = 0;
+
+for j = 1:5
+
+    mult = ((2*i)^2) -1
+
+    disp(mult);
+
+    for k = j:5
+
+        A(k+1, j+1) = (((mult+1)*A(k+1,j))-A(k,j))/mult;
+
+    end
+
+end
+
+A
+        
+
+---------------------------------------------------------------------------------------------------------------------------
+A =
+
+   1.000000000000000                   0                   0                   0                   0                   0
+
+      0.770151152934070   0.768543818339203                   0                   0                   0                   0
+   
+   0.765197875004850   0.765163236697653   0.765139596266593                   0                   0                   0
+   
+   0.765197686557966   0.765197685240156   0.765197926139055   0.765198334040261                   0                   0
+
+      0.765197686557966   0.765197686557966   0.765197686567182   0.765197684891854   0.765197680352355                   0
+   
+   0.765197686557967   0.765197686557967   0.765197686557967   0.765197686557902   0.765197686569553   0.765197686613030
+
+---------------------------------------------------------------------------------------------------------------------------
+
+R66 is very clearly within less than 10^-4 error because the last evaluation changes only the 10th decimal place or 10^-9 error
+
+
+Problem 2
+---------
+
+CompositeTrapazoidRule.m
+------------------------
+
+final = 0;
+
+syms equ(x);
+
+equ(x) = x*(exp(-x));
+
+final = (equ(0) + equ(1));
+
+v = double(final)
+disp(v)
+middle = 0;
+
+i = 0.01;
+while (i < 1)
+
+    middle = middle + equ(i);
+
+    i = i + 0.01;
+
+    disp(i)
+end
+middle = 2*middle;
+
+final = 1/2*(final + middle)*0.01;
+
+s = double(final);
+disp(s);
+
+
+-------------------------
+Ans =    0.264232784355230
+
+
+
+CompositeSimpsonsRule.m
+-----------------------
+
+syms equ(x);
+
+equ(x) = x*(exp(-x));
+
+final = (equ(0) + equ(1));
+
+i = 0.01
+
+loops = 0
+
+middle = 0
+
+while i < 1
+
+    loops = loops + 1
+
+    if(mod(loops,2) == 1)
+
+        middle = middle + 4*equ(i);
+
+        disp("oddproc")
+
+    end
+
+    if (mod(loops,2) == 0)
+
+        middle = middle + 2*equ(i);
+
+        disp("evenproc")
+
+    end
+
+    i = i + 0.01
+
+end
+final = 1/3*(middle + final)*0.01
+
+s = double(final);
+
+disp(s);       
+   
+
+-------------------- 
+Ans =    0.264241117531327
+    
+
+
+GuassianQuadrature.m
+---------------------
+syms equ(x);
+
+equ(x) = 1/2*(1/2*x + 1/2)*exp(-(1/2*x + 1/2));
+
+final = (5/9*equ(-sqrt(3/5))) + (8/9*equ(0)) + 5/9*equ(sqrt(3/5));
+
+s = double(final)
+
+disp(s)
+
+
+------------------
+Ans =  0.264242789689502
+
+
+------------------------
+CTR = 0.264232784355230
+
+CSR = 0.264241117531327
+  
+GQR = 0.264242789689502
+
+
+ANS = 0.264241117657115
+
+According to my specific results, Composite Simpsons Rule (at 100 intervals) was the most accurate 
+and composite trapazoid rule (at 100 intervals) was the least accurate

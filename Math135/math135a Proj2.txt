@@ -1,0 +1,209 @@
+[PROBLEM 1]
+
+>> for n = 1:4
+   leading(n) = MyMat(n,1)    
+    for m = 2:4
+        if MyMat(n, m) > largMag(n)
+            largMag(n) = MyMat(n, m)
+        end
+    end
+    if leading(n)/largMag(n) > pivRatio(1)
+        pivRatio(1) = leading(n)/largMag(n)
+        pivRatio(2) = n
+    end
+end
+----------------------------------------------
+pivRatio =
+
+    1.1136    1.0000
+----------------------------------------------
+>> for n = 1:4
+    if n == pivRatio(2)
+        n  = n + 1
+    end
+    multRat = MyMat(n,1)/MyMat(pivRatio(2), 1)
+    Equalities(n) = Equalities(n) -  (multRat * Equalities(pivRatio(2)))
+    for m = 1:4
+        MyMat(n,m) = MyMat(n,m) - (multRat* MyMat(pivRatio(2),m))
+    end
+end
+----------------------------------------------
+MyMat =
+
+    0.4096    0.1234    0.3678    0.2943
+         0    0.3195    0.1998   -0.0485
+         0    0.0822    0.0508   -0.1976
+         0    0.3465    0.1184    0.2645
+
+Equalities =
+
+    0.4043   -0.0667    0.0642    0.0796
+----------------------------------------------
+>> for n = 2:4
+        leading(n) = MyMat(n,2)
+        for m = 3:4
+            if abs(MyMat(n,m)) > largMag(n)
+                largMag(n) = abs(MyMat(n,m))
+           end
+        end
+        if leading(n)/largMag(n) > pivRatio(1)
+            pivRatio(1) = leading(n)/largMag(n)
+            pivRatio(2) = n
+        end
+    end
+---------------------------------------------
+pivRatio =
+
+    1.5991    2.0000
+---------------------------------------------
+>> for n = 2:4
+    if n == pivRatio(2)
+        n  = n + 1
+    end
+    multRat = MyMat(n,2)/MyMat(pivRatio(2), 2)
+    Equalities(n) = Equalities(n) -  (multRat * Equalities(pivRatio(2)))
+    for m = 2:4
+        MyMat(n,m) = MyMat(n,m) - (multRat* MyMat(pivRatio(2),m))
+    end
+end
+---------------------------------------------
+MyMat =
+
+    0.4096    0.1234    0.3678    0.2943
+         0    0.3195    0.1998   -0.0485
+         0         0   -0.0006   -0.1851
+         0         0   -0.0982    0.3171
+		 
+Equalities =
+
+    0.4043   -0.0667    0.0814    0.1519
+---------------------------------------------
+>> for n = 3:4
+        leading(n) = abs(MyMat(n,3))
+        for m = 4:4
+            if abs(MyMat(n,m)) > largMag(n)
+                largMag(n) = abs(MyMat(n,m))
+           end
+        end
+        if leading(n)/largMag(n) > pivRatio(1)
+            pivRatio(1) = leading(n)/largMag(n)
+            pivRatio(2) = n
+        end
+    end
+----------------------------------------------
+pivRatio =
+
+    0.3099    4.0000
+
+----------------------------------------------
+>> for n = 3:4
+    if n == pivRatio(2)
+        n  = n + 1
+    end
+    multRat = MyMat(n,3)/MyMat(pivRatio(2), 3)
+    Equalities(n) = Equalities(n) -  (multRat * Equalities(pivRatio(2)))
+    for m = 3:4
+        MyMat(n,m) = MyMat(n,m) - (multRat* MyMat(pivRatio(2),m))
+    end
+end
+----------------------------------------------
+MyMat =
+
+    0.4096    0.1234    0.3678    0.2943
+         0    0.3195    0.1998   -0.0485
+         0         0         0   -0.1871
+         0         0   -0.0982    0.3171
+		 
+Equalities =
+
+    0.4043   -0.0667    0.0804    0.1519
+-----------------------------------------------
+>> Sols(4) = Equalities(3)/MyMat(3,4)
+
+Sols =
+
+         0         0         0   -0.4301
+
+
+>> Sols(3) = (Equalities(4) - (MyMat(4,4)*Sols(4)))/MyMat(4,3)
+
+Sols =
+
+         0         0   -2.9342   -0.4301
+
+>> Sols(2) = (Equalities(2) - (MyMat(2,4)*Sols(4)) - (MyMat(2,3)*Sols(3)))/MyMat(2,2)
+
+Sols =
+
+         0    1.5609   -2.9342   -0.4301
+
+
+>> Sols(1) = (Equalities(1) - (MyMat(1,4)*Sols(4)) - (MyMat(1,3)*Sols(3)) - (MyMat(1,2)*Sols(2)))/MyMat(1,1)
+
+Sols =
+
+    3.4606    1.5609   -2.9342   -0.4301
+
+	
+	
+	
+=========================================================================
+[PROBLEM 2]
+
+
+
+
+MyMATDup =
+
+    0.3840         0         0         0         0         0    0.1284
+         0    0.5124         0         0         0    0.3750         0
+         0         0    0.7890         0    0.2879         0         0
+         0         0         0    1.2718         0         0         0
+         0         0    0.4230         0    0.5432         0         0
+         0    0.0358         0         0         0    0.8774         0
+   -0.1127         0         0         0         0         0    0.9125
+-----------------------------------------------------------------------
+>> for m = 1:3
+        MatRat = MyMAT(n-m+1,m)/MyMAT(m,m)
+        MyMAT(n-m+1,m) = MyMAT(n-m+1,m) - (MatRat*MyMAT(m,m))    
+        MyMAT(n-m+1,n-m+1) = MyMAT(n-m+1,n-m+1) - (MatRat*MyMAT(m, n-m+1))
+
+        Equalities(n-m+1) = Equalities(n-m+1) - (MatRat*Equalities(m))
+end
+-----------------------------------------------------------------------
+MyMAT =
+
+    0.3840         0         0         0         0         0    0.1284
+         0    0.5124         0         0         0    0.3750         0
+         0         0    0.7890         0    0.2879         0         0
+         0         0         0    1.2718         0         0         0
+         0         0    0.0000         0    0.3889         0         0
+         0         0         0         0         0    0.8512         0
+         0         0         0         0         0         0    0.9502
+
+
+Equalities =
+
+    2.3715    0.7887   -4.5612    3.6233    3.2273   -2.1903    0.8395
+-----------------------------------------------------------------------
+>> for m  = 5:7
+    sols(m) = Equalities(m)/MyMAT(m,m)
+end
+-----------------------------------------------------------------------
+sols =
+
+         0         0         0         0    8.2995   -2.5732    0.8835
+-----------------------------------------------------------------------
+>> for m = 1:3
+    sols(m) = (Equalities(m) - (MyMAT(m, n-m+1)))/MyMAT(m,m)
+end
+-----------------------------------------------------------------------
+sols =
+
+    5.8414    0.8074   -6.1459         0    8.2995   -2.5732    0.8835
+-----------------------------------------------------------------------
+>> sols(4) = Equalities(4)/MyMAT(4,4)
+-----------------------------------------------------------------------
+sols =
+
+    5.8414    0.8074   -6.1459    2.8490    8.2995   -2.5732    0.8835

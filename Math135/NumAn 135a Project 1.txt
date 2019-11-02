@@ -1,0 +1,112 @@
+Introduction To Numerical Analysis Project 1
+
+[Problem 1]
+Write Code to evaluate the polynomial at the point Indicated using Horner's algorithm
+2x^4 - 3x^3 - 5x^2 + 3x +8 at 2 
+
+
+>> CP = [2 -3 -5 3 8]
+>> Xev = 0
+
+>> format long
+>> for i = 1:numel(CP)
+	Xev = (Xev * 2) + CP(i)
+	disp(Xev);
+end
+
+Xev =
+
+2
+
+
+Xev =
+
+1
+
+
+Xev =
+
+-3
+
+
+Xev =
+
+-3
+
+
+Xev =
+
+2
+
+
+[Problem 2]
+Write Code to calculate f(0.008), where 
+
+	f(x) = (cos(x) - e^-x)/sin(x)
+	
+Correctly to ten decimal places for numerator and denominator respecively
+
+
+>> Numer = 0
+>> Denom = 0
+>> s = 10
+
+>> format long
+>> for e = 1:s
+	Numer = Numer + ((-1)^e*(((x^(2*e))/factorial(2*e)) - ((x^e)/factorial(e))))
+	disp(Numer);
+end
+
+Numer =
+
+   0.007968000000000
+
+
+Numer =
+
+   0.007936000170667
+
+
+Numer =
+
+   0.007936085504000
+
+
+Numer =
+
+   0.007936085333333
+
+
+Numer =
+
+   0.007936085333606
+   
+>> for e = 1:s
+	Denom = Denom + (((-1)^(e-1))*((x^((2*e) - 1))/factorial((2*e)-1)))
+	disp(Denom);
+end
+
+Denom =
+
+   0.008000000000000
+
+
+Denom =
+
+   0.007999914666667
+
+
+Denom =
+
+   0.007999914666940
+
+>> Numer/Denom
+
+ans =
+
+   0.992021248226829
+
+
+
+
+
