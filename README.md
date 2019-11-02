@@ -11,5 +11,7 @@ CS152: Compiler Design
 
 
 Points of Interest:
+
   -Database Management systems final project contains exstensive usage of java and psql
-  -Compiler Design final project is a mini compiler complete with a lexicon and parser that uses Bison
+
+-Compiler Design final project is a mini compiler complete with a lexicon and parser that uses Bison
