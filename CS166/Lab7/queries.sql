@@ -8,18 +8,34 @@
 --6. Delete all parts from NYC which have less than 30 parts on hand.
 
 --1
-SELECT on_hand, count(*) FROM part_nyc WHERE on_hand > 70 GROUP BY on_hand;
+SELECT on_hand, count(*) 
+FROM part_nyc WHERE on_hand > 70 GROUP BY on_hand;
 
 
 --2
-SELECT sum(on_hand) FROM (SELECT on_hand FROM part_nyc N, color C WHERE N.color = C.color_id AND C.color_name = 'Red' UNION ALL SELECT on_hand FROM part_sfo S, color C2 WHERE S.color = C2.color_id AND  C2.color_name = 'Red') as temp;
+SELECT sum(on_hand) FROM (SELECT on_hand 
+FROM part_nyc N, color C 
+WHERE N.color = C.color_id AND C.color_name = 'Red' 
+UNION ALL 
+   SELECT on_hand 
+   FROM part_sfo S, color C2 
+   WHERE S.color = C2.color_id AND  C2.color_name = 'Red') as temp;
 
 
 --3
---SELECT supplier_name, COUNT(*) FROM supplier S1, part_nyc N, part_sfo S WHERE S1.supplier_id = N.supplier AND S1.supplier_id = S.supplier AND N.on_hand > S.on_hand GROUP BY supplier_name;
+SELECT supplier_name, COUNT(*)
+FROM supplier S, part_nyc P1, part_sfo P2
+WHERE S.supplier_id = P1.supplier AND S.supplier_id = P2.supplier AND P1.on_hand > P2.on_hand
+GROUP BY supplier_name;
+
 
 
 --4
+SELECT supplier_name, COUNT(*)
+FROM supplier S, part_nyc P1, part_sfo P2 
+WHERE S.supplier_id = P1.supplier AND S.supplier_id = P2.supplier AND P1.part_number <> P2.part_number
+GROUP BY supplier name;
+
 
 --5
 UPDATE part_nyc
